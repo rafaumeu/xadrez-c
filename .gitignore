@@ -45,9 +45,3 @@ bin/
 build/
 xadrez
 xadrez_debug
-# Arquivos de IDE/Editor
-.vscode/*
-!.vscode/tasks.json
-!.vscode/launch.json
-!.vscode/settings.json
-!.vscode/c_cpp_properties.json

@@ -33,26 +33,26 @@ This project simulates the movement of chess pieces (Rook, Bishop, Queen, and Kn
 
 1. Clone the repository:
 
-\```bash
+```bash
 git clone <https://github.com/yourusername/xadrez-c.git>
 cd xadrez-c
-\```
+```
 
 2. Compile the program:
 
-\```bash
+```bash
 gcc -o xadrez main.c tabuleiro.c src/pecas/torre.c src/pecas/bispo.c src/pecas/rainha.c src/pecas/cavalo.c -Iinclude
-\```
+```
 
 3. Run the program:
 
-\```bash
+```bash
 ./xadrez
-\```
+```
 
 ## 📁 Project Structure
 
-\```
+```
 xadrez-c/
 ├── include/
 │   ├── pecas.h
@@ -66,7 +66,7 @@ xadrez-c/
 ├── tabuleiro.c
 ├── main.c
 └── README.md
-\```
+```
 
 ## 🎯 Usage
 
