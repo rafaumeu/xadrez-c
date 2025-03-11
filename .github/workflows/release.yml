@@ -19,48 +19,69 @@ jobs:
       - name: Get latest tag
         id: get_tag
         run: |
-          latest_tag=$(git describe --tags --abbrev=0 2>/dev/null || echo "v0.1.0")
-          echo "LATEST_TAG=$latest_tag" >> $GITHUB_ENV
+          latest_tag=$(git describe --tags --abbrev=0 2>/dev/null || echo "")
+          if [ -z "$latest_tag" ]; then
+            echo "No tags found, using initial version"
+            echo "LATEST_TAG=v0.0.0" >> $GITHUB_ENV
+            echo "INITIAL_RELEASE=true" >> $GITHUB_ENV
+          else
+            echo "LATEST_TAG=$latest_tag" >> $GITHUB_ENV
+            echo "INITIAL_RELEASE=false" >> $GITHUB_ENV
+          fi
 
       - name: Determine version bump
         id: bump
         run: |
-          commits=$(git log ${{ env.LATEST_TAG }}..HEAD --pretty=format:"%s")
-          bump_type="patch"
+          if [ "${{ env.INITIAL_RELEASE }}" == "true" ]; then
+            echo "BUMP=minor" >> $GITHUB_ENV
+          else
+            commits=$(git log ${{ env.LATEST_TAG }}..HEAD --pretty=format:"%s" 2>/dev/null || echo "")
+            bump_type="patch"
 
-          while IFS= read -r commit; do
-            if [[ $commit == feat:* ]]; then
-              bump_type="minor"
-            elif [[ $commit == BREAKING* ]] || [[ $commit == !:* ]]; then
-              bump_type="major"
-              break
+            if [ -n "$commits" ]; then
+              while IFS= read -r commit; do
+                if [[ $commit == feat:* ]]; then
+                  bump_type="minor"
+                elif [[ $commit == BREAKING* ]] || [[ $commit == !:* ]]; then
+                  bump_type="major"
+                  break
+                fi
+              done <<< "$commits"
             fi
-          done <<< "$commits"
 
-          echo "BUMP=$bump_type" >> $GITHUB_ENV
+            echo "BUMP=$bump_type" >> $GITHUB_ENV
+          fi
 
       - name: Bump version
         id: version
         run: |
-          IFS='.' read -r major minor patch < <(echo "${LATEST_TAG#v}" | tr -d 'v')
+          if [ "${{ env.INITIAL_RELEASE }}" == "true" ]; then
+            new_version="0.1.0"
+          else
+            IFS='.' read -r major minor patch < <(echo "${LATEST_TAG#v}" | tr -d 'v')
 
-          case ${{ env.BUMP }} in
-            major)
-              new_version="$((major + 1)).0.0"
-              ;;
-            minor)
-              new_version="${major}.$((minor + 1)).0"
-              ;;
-            patch)
-              new_version="${major}.${minor}.$((patch + 1))"
-              ;;
-          esac
+            case ${{ env.BUMP }} in
+              major)
+                new_version="$((major + 1)).0.0"
+                ;;
+              minor)
+                new_version="${major}.$((minor + 1)).0"
+                ;;
+              patch)
+                new_version="${major}.${minor}.$((patch + 1))"
+                ;;
+            esac
+          fi
 
           echo "NEW_VERSION=v$new_version" >> $GITHUB_ENV
 
       - name: Create Release
         run: |
-          changelog=$(git log ${{ env.LATEST_TAG }}..HEAD --pretty=format:"- %s%n")
+          if [ "${{ env.INITIAL_RELEASE }}" == "true" ]; then
+            changelog="Initial release"
+          else
+            changelog=$(git log ${{ env.LATEST_TAG }}..HEAD --pretty=format:"- %s%n" 2>/dev/null || echo "- Initial release")
+          fi
 
           gh release create ${{ env.NEW_VERSION }} \
             --title "${{ env.NEW_VERSION }}" \
