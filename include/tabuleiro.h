@@ -1,7 +1,7 @@
 /**
  * @file tabuleiro.h
  * @brief Declaração das constantes e funções relacionadas ao tabuleiro
- * 
+ *
  * Este arquivo contém as declarações das constantes e funções
  * relacionadas ao tabuleiro de xadrez.
  */
@@ -13,7 +13,7 @@
 #define RAINHA_CASAS 8
 /**
  * @brief Exibe informações sobre o tabuleiro
- * 
+ *
  * Exibe uma mensagem de boas-vindas e informações sobre o tabuleiro.
  */
 void exibirInfoTabuleiro(void);
