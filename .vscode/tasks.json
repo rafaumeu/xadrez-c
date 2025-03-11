@@ -1,0 +1,26 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build",
+            "type": "shell",
+            "command": "gcc",
+            "args": [
+                "-o",
+                "xadrez",
+                "main.c",
+                "tabuleiro.c",
+                "src/pecas/torre.c",
+                "src/pecas/bispo.c",
+                "src/pecas/rainha.c",
+                "src/pecas/cavalo.c",
+                "-Iinclude"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": ["$gcc"]
+        }
+    ]
+}
