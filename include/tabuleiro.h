@@ -11,6 +11,9 @@
 #define TORRE_CASAS 5
 #define BISPO_CASAS 5
 #define RAINHA_CASAS 8
+#define CAVALO_CASAS_VERTICAL 2
+#define CAVALO_CASAS_HORIZONTAL 1
+
 /**
  * @brief Exibe informações sobre o tabuleiro
  *

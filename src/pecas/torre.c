@@ -5,7 +5,7 @@
  * Este arquivo contém a implementação da função que simula
  * o movimento da Torre usando a estrutura de repetição FOR.
  */
-#include "include/pecas.h"
+#include "pecas.h"
 #include <stdio.h>
 
 void moverTorre(int numCasas) {

@@ -5,7 +5,7 @@
  * Este arquivo contém a implementação da função que simula
  * o movimento da Rainha usando a estrutura de repetição DO-WHILE.
  */
-#include "include/pecas.h"
+#include "pecas.h"
 #include <stdio.h>
 
 void moverRainha(int numCasas) {

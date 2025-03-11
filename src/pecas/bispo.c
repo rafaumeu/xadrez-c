@@ -5,7 +5,7 @@
  * Este arquivo contém a implementação da função que simula
  * o movimento do Bispo usando a estrutura de repetição WHILE.
  */
-#include "include/pecas.h"
+#include "pecas.h"
 #include <stdio.h>
 
 void moverBispo(int numCasas) {

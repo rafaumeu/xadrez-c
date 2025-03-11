@@ -2,16 +2,18 @@
  * @file main.c
  * @brief Programa principal para simulação de movimentos de peças de xadrez
  *
- * Este programa simula o movimento de três peças de xadrez:
+ * Este programa simula o movimento de quatro peças de xadrez:
  * - Torre: 5 casas para a direita (usando FOR)
  * - Bispo: 5 casas na diagonal para cima/direita (usando WHILE)
  * - Rainha: 8 casas para a esquerda (usando DO-WHILE)
+ * - Cavalo: movimento em "L" - 2 casas para baixo e 1 para esquerda (usando
+ * loops aninhados)
  *
  * Cada movimento é representado por uma saída no console indicando a direção.
  */
 
-#include "include/pecas.h"
-#include "include/tabuleiro.h"
+#include "pecas.h"
+#include "tabuleiro.h"
 #include <stdio.h>
 
 int main() {
@@ -27,7 +29,8 @@ int main() {
   // Simula o movimento da Rainha usando DO-WHILE
   moverRainha(RAINHA_CASAS);
 
-  printf("\n=== Fim da Simulação ===\n");
+  // Simula o movimento do Cavalo usando loops aninhados (FOR e WHILE)
+  moverCavalo(CAVALO_CASAS_VERTICAL, CAVALO_CASAS_HORIZONTAL);
 
   return 0;
 }

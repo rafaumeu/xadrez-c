@@ -9,16 +9,17 @@
 
 ## 📖 About
 
-This project simulates the movement of chess pieces (Rook, Bishop, and Queen) using different loop structures in C. Each piece demonstrates a specific type of movement using a different loop structure:
+This project simulates the movement of chess pieces (Rook, Bishop, Queen, and Knight) using different loop structures in C. Each piece demonstrates a specific type of movement using a different loop structure:
 
 - **Rook**: Uses `for` loop to move 5 squares to the right
 - **Bishop**: Uses `while` loop to move 5 squares diagonally (up and right)
 - **Queen**: Uses `do-while` loop to move 8 squares to the left
+- **Knight**: Uses nested loops (`for` and `while`) to move in an "L" shape (2 squares down, 1 square left)
 
 ## 🚀 Features
 
-- Simulates three different chess pieces movements
-- Implements three types of loop structures
+- Simulates four different chess pieces movements
+- Implements various loop structures including nested loops
 - Console-based visualization of movements
 - Clean and documented code
 
@@ -32,26 +33,26 @@ This project simulates the movement of chess pieces (Rook, Bishop, and Queen) us
 
 1. Clone the repository:
 
-```bash
+\```bash
 git clone <https://github.com/yourusername/xadrez-c.git>
 cd xadrez-c
-```
+\```
 
 2. Compile the program:
 
-```bash
-gcc -o xadrez main.c src/pecas/torre.c src/pecas/bispo.c src/pecas/rainha.c src/tabuleiro/tabuleiro.c -I.
-```
+\```bash
+gcc -o xadrez main.c tabuleiro.c src/pecas/torre.c src/pecas/bispo.c src/pecas/rainha.c src/pecas/cavalo.c -Iinclude
+\```
 
 3. Run the program:
 
-```bash
+\```bash
 ./xadrez
-```
+\```
 
 ## 📁 Project Structure
 
-```
+\```
 xadrez-c/
 ├── include/
 │   ├── pecas.h
@@ -60,12 +61,12 @@ xadrez-c/
 │   ├── pecas/
 │   │   ├── torre.c
 │   │   ├── bispo.c
-│   │   └── rainha.c
-│   └── tabuleiro/
-│       └── tabuleiro.c
+│   │   ├── rainha.c
+│   │   └── cavalo.c
+├── tabuleiro.c
 ├── main.c
 └── README.md
-```
+\```
 
 ## 🎯 Usage
 
@@ -74,6 +75,7 @@ The program will simulate the movement of each piece sequentially:
 1. The Rook will move 5 squares to the right
 2. The Bishop will move 5 squares diagonally
 3. The Queen will move 8 squares to the left
+4. The Knight will move in an "L" shape (2 squares down, 1 square left)
 
 ## 🤝 Contributing
 
