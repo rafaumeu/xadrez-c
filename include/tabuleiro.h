@@ -13,6 +13,7 @@
 #define RAINHA_CASAS 8
 #define CAVALO_CASAS_VERTICAL 2
 #define CAVALO_CASAS_HORIZONTAL 1
+#define CAVALO_MOVIMENTOS 3
 
 /**
  * @brief Exibe informações sobre o tabuleiro
@@ -20,5 +21,12 @@
  * Exibe uma mensagem de boas-vindas e informações sobre o tabuleiro.
  */
 void exibirInfoTabuleiro(void);
+
+/**
+ * @brief Exibe informações sobre o tabuleiro para o nível mestre
+ *
+ * Exibe informações sobre o tabuleiro para o desafio de nível mestre.
+ */
+void exibirInfoTabuleiroMestre(void);
 
 #endif /* TABULEIRO_H */
