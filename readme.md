@@ -4,6 +4,11 @@
 
 ![C](https://img.shields.io/badge/C-00599C?style=for-the-badge&logo=c&logoColor=white)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![CodeQL](https://github.com/rafaumeu/xadrez-c/actions/workflows/codeql.yml/badge.svg)](https://github.com/rafaumeu/xadrez-c/actions/workflows/codeql.yml)
+![GitHub last commit](https://img.shields.io/github/last-commit/rafaumeu/xadrez-c)
+![GitHub issues](https://img.shields.io/github/issues/rafaumeu/xadrez-c)
+![GitHub pull requests](https://img.shields.io/github/issues-pr/rafaumeu/xadrez-c)
+[![Educational](https://img.shields.io/badge/Educational-Project-blue)](https://github.com/rafaumeu/xadrez-c)
 
 </div>
 
