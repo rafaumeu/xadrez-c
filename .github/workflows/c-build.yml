@@ -1,30 +1,28 @@
-
-
-
 name: C Build
 
 on:
   push:
-    branches: [ main, feature/* ]
+    branches: [main, feature/*]
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
-    
-    - name: Install dependencies
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y gcc make
-        
-    - name: Build
-      run: |
-        mkdir -p src/pecas
-        gcc -o xadrez main.c tabuleiro.c src/pecas/*.c -Iinclude
-      
-    - name: Test run
-      run: ./xadrez
+      - uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y gcc make
+
+      - name: Build
+        run: |
+          mkdir -p src/pecas
+          gcc -o xadrez main.c tabuleiro.c src/pecas/*.c -Iinclude
+
+      - name: Test run
+        # Provide input "1" to select the basic level
+        run: echo "1" | ./xadrez

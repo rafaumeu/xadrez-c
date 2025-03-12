@@ -9,17 +9,31 @@
 
 ## 📖 About
 
-This project simulates the movement of chess pieces (Rook, Bishop, Queen, and Knight) using different loop structures in C. Each piece demonstrates a specific type of movement using a different loop structure:
+This project simulates the movement of chess pieces (Rook, Bishop, Queen, and Knight) using different loop structures and recursion in C. The project has two challenge levels:
+
+### Basic Level
+
+Each piece demonstrates a specific type of movement using a different loop structure:
 
 - **Rook**: Uses `for` loop to move 5 squares to the right
 - **Bishop**: Uses `while` loop to move 5 squares diagonally (up and right)
 - **Queen**: Uses `do-while` loop to move 8 squares to the left
 - **Knight**: Uses nested loops (`for` and `while`) to move in an "L" shape (2 squares down, 1 square left)
 
+### Master Level
+
+Advanced implementations using recursion and complex loops:
+
+- **Rook**: Uses recursion to move 5 squares to the right
+- **Bishop**: Implemented with both recursion and nested loops for diagonal movement
+- **Queen**: Uses recursion to move 8 squares to the left
+- **Knight**: Uses complex nested loops with multiple conditions to move in an "L" shape (2 squares up, 1 square right)
+
 ## 🚀 Features
 
 - Simulates four different chess pieces movements
 - Implements various loop structures including nested loops
+- Demonstrates recursive implementations of movement patterns
 - Console-based visualization of movements
 - Clean and documented code
 
@@ -33,20 +47,20 @@ This project simulates the movement of chess pieces (Rook, Bishop, Queen, and Kn
 
 1. Clone the repository:
 
-```bash
-git clone <https://github.com/yourusername/xadrez-c.git>
+```
+git clone <repository-url>
 cd xadrez-c
 ```
 
 2. Compile the program:
 
-```bash
-gcc -o xadrez main.c tabuleiro.c src/pecas/torre.c src/pecas/bispo.c src/pecas/rainha.c src/pecas/cavalo.c -Iinclude
+```
+gcc -o xadrez main.c tabuleiro.c src/pecas/*.c -Iinclude
 ```
 
 3. Run the program:
 
-```bash
+```
 ./xadrez
 ```
 
@@ -62,7 +76,12 @@ xadrez-c/
 │   │   ├── torre.c
 │   │   ├── bispo.c
 │   │   ├── rainha.c
-│   │   └── cavalo.c
+│   │   ├── cavalo.c
+│   │   ├── torre_recursivo.c
+│   │   ├── bispo_recursivo.c
+│   │   ├── rainha_recursivo.c
+│   │   ├── bispo_loops_aninhados.c
+│   │   └── cavalo_complexo.c
 ├── tabuleiro.c
 ├── main.c
 └── README.md
@@ -70,12 +89,87 @@ xadrez-c/
 
 ## 🎯 Usage
 
-The program will simulate the movement of each piece sequentially:
+When you run the program, you'll be prompted to choose a challenge level:
 
-1. The Rook will move 5 squares to the right
-2. The Bishop will move 5 squares diagonally
-3. The Queen will move 8 squares to the left
-4. The Knight will move in an "L" shape (2 squares down, 1 square left)
+1. **Basic Level**: Uses simple loop structures
+   - The Rook will move 5 squares to the right
+   - The Bishop will move 5 squares diagonally
+   - The Queen will move 8 squares to the left
+   - The Knight will move in an "L" shape (2 squares down, 1 square left)
+
+2. **Master Level**: Uses recursion and complex loops
+   - The Rook will move 5 squares to the right using recursion
+   - The Bishop will move 5 squares diagonally using both recursion and nested loops
+   - The Queen will move 8 squares to the left using recursion
+   - The Knight will move in an "L" shape (2 squares up, 1 square right) using complex loops
+
+## 💻 Code Examples
+
+### Recursive Implementation (Rook)
+
+```c
+void moverTorreRecursivo(int casasRestantes) {
+  // Caso base: quando não há mais casas para mover
+  if (casasRestantes <= 0) {
+    printf("\n=== Fim do movimento da TORRE (Recursivo) ===\n");
+    return;
+  }
+  
+  // Caso inicial: imprime o cabeçalho apenas na primeira chamada
+  if (casasRestantes == TORRE_CASAS) {
+    printf("\n=== Movimento da Torre (Recursivo - %d casas para a direita) ===\n", 
+           TORRE_CASAS);
+  }
+  
+  // Imprime a direção do movimento
+  printf("Direita\n");
+  
+  // Chamada recursiva para mover a próxima casa
+  moverTorreRecursivo(casasRestantes - 1);
+}
+```
+
+### Complex Loops Implementation (Knight)
+
+```c
+void moverCavaloComplexo(int numMovimentos) {
+  printf("\n=== Movimento do Cavalo (Loops Complexos - %d movimentos em \"L\") ===\n", 
+         numMovimentos);
+  
+  int movimentosCompletos = 0;
+  
+  // Loop externo para controlar o número total de movimentos em "L"
+  for (int i = 0; i < numMovimentos; i++) {
+    // Loop aninhado para simular o movimento em "L" (2 para cima, 1 para direita)
+    for (int j = 0; j < 3; j++) {
+      // Verifica se estamos nos primeiros dois passos (movimento para cima)
+      if (j < 2) {
+        printf("Cima\n");
+      } 
+      // Último passo (movimento para direita)
+      else if (j == 2) {
+        printf("Direita\n");
+        
+        // Incrementa o contador de movimentos completos
+        movimentosCompletos++;
+        
+        // Se já completamos todos os movimentos, saímos do loop
+        if (movimentosCompletos >= numMovimentos) {
+          break;
+        }
+      }
+      
+      // Se for o último passo do movimento em "L", reiniciamos o loop interno
+      if (j == 2) {
+        // Usamos continue para pular para a próxima iteração do loop externo
+        continue;
+      }
+    }
+  }
+  
+  printf("\n=== Fim do movimento do CAVALO (Loops Complexos) ===\n");
+}
+```
 
 ## 🤝 Contributing
 
