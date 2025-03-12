@@ -13,12 +13,15 @@ jobs:
       pull-requests: write
       repository-projects: write
       contents: read
+      # Add project permission
+      project: write
 
     steps:
       - name: Move Issue or PR to Project Board
         uses: actions/github-script@v6
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          # Use a fine-grained PAT instead of GITHUB_TOKEN
+          github-token: ${{ secrets.PROJECT_TOKEN }}
           script: |
             const projectId = "PVT_kwHOAdW7184Ayg4u";
             const statusFieldId = "PVTSSF_lAHOAdW7184AxuCEzgnyZJw";
@@ -40,35 +43,41 @@ jobs:
               status = context.payload.action === 'closed' ? 'done' : 'in_progress';
             }
             
-            // Add item to project
-            const addResponse = await github.graphql(`
-              mutation($projectId: ID!, $contentId: ID!) {
-                addProjectV2ItemById(input: {projectId: $projectId, contentId: $contentId}) {
-                  item {
-                    id
+            try {
+              // Add item to project
+              const addResponse = await github.graphql(`
+                mutation($projectId: ID!, $contentId: ID!) {
+                  addProjectV2ItemById(input: {projectId: $projectId, contentId: $contentId}) {
+                    item {
+                      id
+                    }
                   }
                 }
-              }
-            `, {
-              projectId: projectId,
-              contentId: itemId
-            });
-            
-            // Update status
-            await github.graphql(`
-              mutation($projectId: ID!, $itemId: ID!, $fieldId: ID!, $optionId: String!) {
-                updateProjectV2ItemFieldValue(
-                  input: {
-                    projectId: $projectId
-                    itemId: $itemId
-                    fieldId: $fieldId
-                    value: { singleSelectOptionId: $optionId }
-                  }
-                ) { projectV2Item { id } }
-              }
-            `, {
-              projectId: projectId,
-              itemId: itemId,
-              fieldId: statusFieldId,
-              optionId: statusIds[status]
-            });
+              `, {
+                projectId: projectId,
+                contentId: itemId
+              });
+              
+              console.log("Item added to project:", addResponse);
+              
+              // Update status
+              await github.graphql(`
+                mutation($projectId: ID!, $itemId: ID!, $fieldId: ID!, $optionId: String!) {
+                  updateProjectV2ItemFieldValue(
+                    input: {
+                      projectId: $projectId
+                      itemId: $itemId
+                      fieldId: $fieldId
+                      value: { singleSelectOptionId: $optionId }
+                    }
+                  ) { projectV2Item { id } }
+                }
+              `, {
+                projectId: projectId,
+                itemId: itemId,
+                fieldId: statusFieldId,
+                optionId: statusIds[status]
+              });
+            } catch (error) {
+              console.error("Error processing project automation:", error);
+            }
