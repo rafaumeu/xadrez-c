@@ -185,6 +185,13 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
+## Contributing
+
+We welcome contributions to this project! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for details on how to contribute, our code of conduct, and the process for submitting pull requests.
+
+## Security
+
+For information about security policies and how to report vulnerabilities, please see our [Security Policy](.github/SECURITY.md).
 <div align="center">
 Made with ❤️ by Rafael Dias Zendron
 </div>
