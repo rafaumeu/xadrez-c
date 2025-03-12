@@ -58,34 +58,55 @@ jobs:
           if [ "${{ env.INITIAL_RELEASE }}" == "true" ]; then
             new_version="0.1.0"
           else
+            # Extract version components
             IFS='.' read -r major minor patch < <(echo "${LATEST_TAG#v}" | tr -d 'v')
-
-            case ${{ env.BUMP }} in
-              major)
-                new_version="$((major + 1)).0.0"
-                ;;
-              minor)
-                new_version="${major}.$((minor + 1)).0"
-                ;;
-              patch)
-                new_version="${major}.${minor}.$((patch + 1))"
-                ;;
-            esac
+            
+            # Check if the version is valid
+            if [[ ! "$major" =~ ^[0-9]+$ ]] || [[ ! "$minor" =~ ^[0-9]+$ ]] || [[ ! "$patch" =~ ^[0-9]+$ ]]; then
+              echo "Warning: Invalid version format in tag $LATEST_TAG, using 0.1.0"
+              new_version="0.1.0"
+            else
+              case ${{ env.BUMP }} in
+                major)
+                  new_version="$((major + 1)).0.0"
+                  ;;
+                minor)
+                  new_version="${major}.$((minor + 1)).0"
+                  ;;
+                patch)
+                  new_version="${major}.${minor}.$((patch + 1))"
+                  ;;
+              esac
+            fi
           fi
 
           echo "NEW_VERSION=v$new_version" >> $GITHUB_ENV
+          echo "Calculated new version: v$new_version"
 
       - name: Create Release
         run: |
-          if [ "${{ env.INITIAL_RELEASE }}" == "true" ]; then
-            changelog="Initial release"
-          else
-            changelog=$(git log ${{ env.LATEST_TAG }}..HEAD --pretty=format:"- %s%n" 2>/dev/null || echo "- Initial release")
-          fi
+          # Check if the tag already exists as a release
+          release_exists=$(gh release view ${{ env.NEW_VERSION }} 2>/dev/null || echo "not_found")
+          
+          if [[ "$release_exists" == "not_found" ]]; then
+            if [ "${{ env.INITIAL_RELEASE }}" == "true" ]; then
+              changelog="Initial release"
+            else
+              changelog=$(git log ${{ env.LATEST_TAG }}..HEAD --pretty=format:"- %s%n" 2>/dev/null || echo "- Initial release")
+            fi
 
-          gh release create ${{ env.NEW_VERSION }} \
-            --title "${{ env.NEW_VERSION }}" \
-            --notes "$changelog" \
-            --target main
+            # Only create if there are actual changes
+            if [[ -n "$changelog" && "$changelog" != "- Initial release" ]]; then
+              gh release create ${{ env.NEW_VERSION }} \
+                --title "${{ env.NEW_VERSION }}" \
+                --notes "$changelog" \
+                --target main
+              echo "Created new release ${{ env.NEW_VERSION }}"
+            else
+              echo "No significant changes detected since ${{ env.LATEST_TAG }}, skipping release"
+            fi
+          else
+            echo "Release ${{ env.NEW_VERSION }} already exists, skipping creation"
+          fi
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
