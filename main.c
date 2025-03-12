@@ -18,52 +18,50 @@
 
 int main() {
   int opcao;
-  
+
   printf("Escolha o nível de desafio:\n");
   printf("1 - Nível Básico (Estruturas de repetição simples)\n");
   printf("2 - Nível Mestre (Recursividade e loops complexos)\n");
   printf("Opção: ");
   scanf("%d", &opcao);
-  
+
   if (opcao == 1) {
     // Exibe informações sobre o tabuleiro
     exibirInfoTabuleiro();
-    
+
     // Simula o movimento da Torre
     moverTorre(TORRE_CASAS);
-    
+
     // Simula o movimento do Bispo
     moverBispo(BISPO_CASAS);
-    
+
     // Simula o movimento da Rainha
     moverRainha(RAINHA_CASAS);
-    
+
     // Simula o movimento do Cavalo
     moverCavalo(CAVALO_CASAS_VERTICAL, CAVALO_CASAS_HORIZONTAL);
-  } 
-  else if (opcao == 2) {
+  } else if (opcao == 2) {
     // Exibe informações sobre o tabuleiro para o nível mestre
     exibirInfoTabuleiroMestre();
-    
+
     // Simula o movimento da Torre usando recursividade
     moverTorreRecursivo(TORRE_CASAS);
-    
+
     // Simula o movimento do Bispo usando recursividade
     moverBispoRecursivo(BISPO_CASAS);
-    
+
     // Simula o movimento do Bispo usando loops aninhados
     moverBispoLoopsAninhados(BISPO_CASAS);
-    
+
     // Simula o movimento da Rainha usando recursividade
     moverRainhaRecursivo(RAINHA_CASAS);
-    
+
     // Simula o movimento do Cavalo usando loops complexos
     moverCavaloComplexo(CAVALO_MOVIMENTOS);
-  }
-  else {
+  } else {
     printf("Opção inválida!\n");
     return 1;
   }
-  
+
   return 0;
 }

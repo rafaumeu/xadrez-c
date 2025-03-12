@@ -15,16 +15,17 @@ void moverRainhaRecursivo(int casasRestantes) {
     printf("\n=== Fim do movimento da RAINHA (Recursivo) ===\n");
     return;
   }
-  
+
   // Caso inicial: imprime o cabeçalho apenas na primeira chamada
   if (casasRestantes == RAINHA_CASAS) {
-    printf("\n=== Movimento da Rainha (Recursivo - %d casas para a esquerda) ===\n", 
+    printf("\n=== Movimento da Rainha (Recursivo - %d casas para a esquerda) "
+           "===\n",
            RAINHA_CASAS);
   }
-  
+
   // Imprime a direção do movimento
   printf("Esquerda\n");
-  
+
   // Chamada recursiva para mover a próxima casa
   moverRainhaRecursivo(casasRestantes - 1);
 }

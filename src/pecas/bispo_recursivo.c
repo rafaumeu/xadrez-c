@@ -15,16 +15,17 @@ void moverBispoRecursivo(int casasRestantes) {
     printf("\n=== Fim do movimento do BISPO (Recursivo) ===\n");
     return;
   }
-  
+
   // Caso inicial: imprime o cabeçalho apenas na primeira chamada
   if (casasRestantes == BISPO_CASAS) {
-    printf("\n=== Movimento do Bispo (Recursivo - %d casas na diagonal para cima/direita) ===\n", 
+    printf("\n=== Movimento do Bispo (Recursivo - %d casas na diagonal para "
+           "cima/direita) ===\n",
            BISPO_CASAS);
   }
-  
+
   // Imprime a direção do movimento (diagonal = cima + direita)
   printf("Cima e Direita\n");
-  
+
   // Chamada recursiva para mover a próxima casa
   moverBispoRecursivo(casasRestantes - 1);
 }

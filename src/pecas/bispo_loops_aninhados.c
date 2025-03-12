@@ -1,6 +1,7 @@
 /**
  * @file bispo_loops_aninhados.c
- * @brief Implementação da função de movimentação do Bispo usando loops aninhados
+ * @brief Implementação da função de movimentação do Bispo usando loops
+ * aninhados
  *
  * Este arquivo contém a implementação da função que simula o movimento
  * do Bispo usando loops aninhados, com o loop externo controlando o movimento
@@ -10,9 +11,10 @@
 #include <stdio.h>
 
 void moverBispoLoopsAninhados(int numCasas) {
-  printf("\n=== Movimento do Bispo (Loops Aninhados - %d casas na diagonal) ===\n", 
-         numCasas);
-  
+  printf(
+      "\n=== Movimento do Bispo (Loops Aninhados - %d casas na diagonal) ===\n",
+      numCasas);
+
   // Loop externo para o movimento vertical
   for (int vertical = 0; vertical < numCasas; vertical++) {
     // Loop interno para o movimento horizontal
@@ -21,6 +23,6 @@ void moverBispoLoopsAninhados(int numCasas) {
       printf("Cima e Direita\n");
     }
   }
-  
+
   printf("\n=== Fim do movimento do BISPO (Loops Aninhados) ===\n");
 }

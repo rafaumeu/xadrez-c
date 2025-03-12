@@ -45,8 +45,10 @@ void moverRainha(int numCasas);
  * Utiliza estruturas de repetição aninhadas (FOR e WHILE) para simular
  * o movimento do Cavalo em "L" (duas casas para baixo e uma para a esquerda).
  *
- * @param numCasasVertical Número de casas que o Cavalo irá se mover verticalmente
- * @param numCasasHorizontal Número de casas que o Cavalo irá se mover horizontalmente
+ * @param numCasasVertical Número de casas que o Cavalo irá se mover
+ * verticalmente
+ * @param numCasasHorizontal Número de casas que o Cavalo irá se mover
+ * horizontalmente
  */
 void moverCavalo(int numCasasVertical, int numCasasHorizontal);
 
